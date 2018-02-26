@@ -18,4 +18,18 @@ Route::get('/', 'PagesController@index');
 //AUTHENTIFICATION
 Auth::routes();
 
+//CRUD USERS
+Route::get('/users', 'UsersController@index');
+Route::get('/users/{user}', 'UsersController@show');
+Route::get('/users/create', 'UsersController@create');
+
+//CRUD EVENTS
+Route::get('/events', 'EventsController@index');
+Route::get('/events/{event}', 'EventsController@show');
+Route::get('/events/create', 'EventsController@create');
+
+
+
+
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+
