@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+// --Homepage of the Website
+Route::get('/', 'PagesController@index');
 
 //AUTHENTIFICATION
 Auth::routes();
