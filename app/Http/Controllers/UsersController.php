@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
+use Illuminate\Foundation\Auth\RegistersUsers;
+
 use App\User;
+
+use Carbon\Carbon;
 
 class UsersController extends Controller
 {
@@ -35,7 +40,37 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,[
+            'firstname' => 'required|string|max:255',
+            'lastname' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6'
+        ]); 
+
+        $received_date = request('birthdate');
+        if($received_date == '' || $received_date == NULL ){
+            $sql_date='1900-01-01';
+        } else {
+            $sql_date = Carbon::createFromFormat('Y-m-d', $received_date)->toDateTimeString();  
+        }
+        
+
+
+        $user = new User; 
+        $user->firstname = request('firstname');
+        $user->lastname = request('lastname');
+        $user->email = request('email');
+        $user->password = bcrypt(request('password'));  
+        $user->birthdate = $sql_date; 
+        $user->remember_token = request('_token');
+        $user->save(); 
+
+        return redirect('dashboard');
+
+
+
+
+
     }
 
     /**
