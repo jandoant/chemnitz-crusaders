@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 use App\User;
+use App\Event;
 
 use Carbon\Carbon;
 

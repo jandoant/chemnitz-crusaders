@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Event extends Model
 {
@@ -14,4 +15,15 @@ class Event extends Model
     protected $fillable = [
         'type', 'location', 'datetime',
     ];
+
+    public function users()
+    {
+        return $this->belongsToMany('App\User');
+    }
+
+    public function prettyDate(){        
+        $dt = Carbon::parse($this->datetime);
+        Carbon::setLocale('de');
+        return $dt->diffForHumans();
+    }
 }

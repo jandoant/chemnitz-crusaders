@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+use Carbon\Carbon;
+
 class User extends Authenticatable
 {
     use Notifiable;
@@ -27,6 +29,15 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function attendedEvents()
+    {
+        return $this->belongsToMany('App\Event')
+            ->select('id')
+            ->withPivot('status_id')
+            ->as('attendance')
+            ->withTimestamps(); 
+    }
+
     public function fullName()
     {
         return $this->firstname." ".$this->lastname; 
@@ -36,4 +47,13 @@ class User extends Authenticatable
     {
         return $this->lastname.", ".$this->firstname; 
     }
+
+    public function age()
+    {
+        $dt = Carbon::parse($this->birthdate);
+        Carbon::setLocale('de');
+        return $dt->age;
+    }
+
+    
 }

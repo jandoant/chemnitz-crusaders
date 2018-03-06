@@ -11,6 +11,7 @@
 |
 */
 
+use App\User; 
 
 // --Homepage of the Website
 Route::get('/', 'PagesController@index');
@@ -23,6 +24,11 @@ Route::resource('users', 'UsersController');
 
 //CRUD EVENTS
 Route::resource('events', 'EventsController');
+
+//ATTENDANCE
+Route::get('attendance', 'AttendanceController@index');
+
+
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
